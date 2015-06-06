@@ -8,6 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import junit.framework.TestCase;
+
 import org.apache.pdfbox.Decrypt;
 import org.apache.pdfbox.Encrypt;
 import org.apache.pdfbox.ExtractText;
@@ -19,7 +21,7 @@ import org.junit.rules.ExpectedException;
 /**
  * Test suite for encrypting the pdf and decrypt back
  */
-public class BDDTestPDFEncryptDecrypt 
+public class BDDTestPDFEncryptDecrypt extends TestCase
 {
     
     /*
@@ -41,8 +43,8 @@ public class BDDTestPDFEncryptDecrypt
 	
 	@Rule public ExpectedException ioexception = ExpectedException.none();
 	
-	@Test
-    public void encryptPDFFileAndUnModifiable() throws Exception 
+	
+    public void testEncryptPDFFileAndUnModifiable() throws Exception 
     {
     	ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
         PrintStream stdout = System.out;
@@ -60,7 +62,9 @@ public class BDDTestPDFEncryptDecrypt
         	ExtractText.main(new String[] { encryptedPDFFile });
         	
         	
-        } 
+        }catch(Exception e){
+        	e.printStackTrace();
+        }
         finally 
         {
             // Restore stdout
@@ -78,8 +82,8 @@ public class BDDTestPDFEncryptDecrypt
     }
 	
 	
-	@Test
-    public void decryptPDFFileAndModifiable() throws Exception 
+	
+    public void testDecryptPDFFileAndModifiable() throws Exception 
     {
     	ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
         PrintStream stdout = System.out;

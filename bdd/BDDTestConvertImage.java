@@ -18,7 +18,7 @@ import org.junit.Test;
 /**
  * Test suite for splitting PDF file. 
  */
-public class BDDTestPDFSplit extends TestCase 
+public class BDDTestConvertImage extends TestCase 
 {
     
     /*

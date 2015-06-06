@@ -13,11 +13,13 @@ import java.util.Scanner;
 import junit.framework.TestCase;
 
 import org.apache.pdfbox.ExtractText;
+import org.apache.pdfbox.TextToPDF;
+import org.junit.Test;
 
 /**
  * Test suite for ExtractText. 
  */
-public class BDDPDFTextExtractorTest extends TestCase 
+public class BDDPDFTestTextToPDF extends TestCase 
 {
     
     /*
@@ -34,12 +36,13 @@ public class BDDPDFTextExtractorTest extends TestCase
      */
 	
 	// Given the pdf file with text
-	private String givenPDFWithText = "src/test/resources/org/apache/pdfbox/bdd/Week9.pdf";
-	private String expectedText = "src/test/resources/org/apache/pdfbox/bdd/Week9.txt";
+	private String expectPDFWithText = "src/test/resources/org/apache/pdfbox/bdd/Week9Text.pdf";
+	private String givenText = "src/test/resources/org/apache/pdfbox/bdd/Week9.txt";
+	private String expectText = "src/test/resources/org/apache/pdfbox/bdd/Week9Text.txt";
 	private String givenOracleText = "src/test/resources/org/apache/pdfbox/bdd/Week9_oracle.txt";
 	
 	
-    public void testLoadPDFFileWithTextAndExtractText() throws Exception 
+    public void testMakePDFFileFromTextAndExtractText() throws Exception 
     {
     	ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
         PrintStream stdout = System.out;
@@ -47,12 +50,15 @@ public class BDDPDFTextExtractorTest extends TestCase
         try 
         {
         	// When extract the pdf text from the file
-        	ExtractText.main(new String[] {givenPDFWithText});
+        	TextToPDF.main(new String[] {expectPDFWithText,givenText});
+        	ExtractText.main(new String[] { expectPDFWithText });
+        	
+        	
         	// Then the file is readable
-        	String output = new Scanner(new File("src/test/resources/org/apache/pdfbox/bdd/Week9.txt")).useDelimiter("\\A").next();
+        	String output = new Scanner(new File(expectText)).useDelimiter("\\A").next().replace(" ","");
         	assertNotNull(output);
         	// Then compare with the oracle result
-        	String oracle = new Scanner(new File("src/test/resources/org/apache/pdfbox/bdd/Week9_oracle.txt")).useDelimiter("\\A").next();
+        	String oracle = new Scanner(new File(givenOracleText)).useDelimiter("\\A").next().replace(" ","");
     		// Compare two string , should have the same value
     		assertEquals(output,oracle);
         	

@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import junit.framework.TestCase;
+
 import org.apache.pdfbox.PDFMerger;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Test;
@@ -14,7 +16,7 @@ import org.junit.Test;
 /**
  * Test suite for Merging two PDF file. 
  */
-public class BDDTestPDFMerger 
+public class BDDTestPDFMerger extends TestCase 
 {
     
     /*
@@ -35,8 +37,8 @@ public class BDDTestPDFMerger
 	private String oraclePDF = "src/test/resources/org/apache/pdfbox/bdd/Week9.pdf";
 	// Expceted files
 	PDDocument merged = null, oracle = null;
-	@Test
-    public void mergeTwoPDFFileShouldHave4Pages() throws Exception 
+	
+    public void testMergeTwoPDFFileShouldHave4Pages() throws Exception 
     {
     	ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
         PrintStream stdout = System.out;
